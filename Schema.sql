@@ -123,7 +123,6 @@ CREATE TABLE FOTO (
     tamanho_arquivo INT,
     ordem_galeria INT DEFAULT 1,
     FOREIGN KEY (id_postagem) REFERENCES POSTAGEM(id_postagem) ON DELETE CASCADE,
-    FOREIGN KEY (id_album) REFERENCES ALBUM(id_album) ON DELETE SET NULL,
     FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario) ON DELETE CASCADE,
     INDEX idx_postagem (id_postagem),
     INDEX idx_album (id_album)
@@ -160,6 +159,10 @@ CREATE TABLE ALBUM (
     FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario) ON DELETE CASCADE,
     INDEX idx_usuario (id_usuario)
 );
+
+ALTER TABLE FOTO
+    ADD CONSTRAINT fk_foto_album
+    FOREIGN KEY (id_album) REFERENCES ALBUM(id_album) ON DELETE SET NULL;
 
 -- Tabela: STORY
 CREATE TABLE STORY (
@@ -656,6 +659,7 @@ CREATE TABLE USUARIO_CONQUISTA (
 -- TRIGGERS E PROCEDURES
 -- ==========================================
 
+-- noqa: disable=PRS
 -- Trigger: Atualizar contador de curtidas
 DELIMITER //
 CREATE TRIGGER after_curtida_insert
@@ -722,6 +726,7 @@ DO
     WHERE data_expiracao < NOW() AND destaque = FALSE;
 //
 DELIMITER ;
+-- noqa: enable=PRS
 
 -- ==========================================
 -- DADOS INICIAIS - CONQUISTAS
@@ -779,7 +784,7 @@ ORDER BY score_engajamento DESC;
 -- ==========================================
 
 CREATE INDEX idx_postagem_privacidade ON POSTAGEM(privacidade);
-CREATE INDEX idx_story_ativo ON STORY(data_expiracao) WHERE data_expiracao > NOW();
+CREATE INDEX idx_story_ativo ON STORY(data_expiracao);
 CREATE INDEX idx_mensagem_conversa_data ON MENSAGEM(id_conversa, data_envio DESC);
 CREATE INDEX idx_notificacao_nao_lida ON NOTIFICACAO(id_usuario_destino, lida, data_notificacao DESC);
 

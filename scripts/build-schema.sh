@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MYSQL_HOST="${MYSQL_HOST:-127.0.0.1}"
+MYSQL_PORT="${MYSQL_PORT:-3306}"
+MYSQL_USER="${MYSQL_USER:-root}"
+MYSQL_PASSWORD="${MYSQL_PASSWORD:-root}"
+MYSQL_DATABASE="${MYSQL_DATABASE:-movo}"
+
+export MYSQL_PWD="$MYSQL_PASSWORD"
+
+mysql -h "$MYSQL_HOST" -P "$MYSQL_PORT" -u "$MYSQL_USER" -e "DROP DATABASE IF EXISTS \\`$MYSQL_DATABASE\\`; CREATE DATABASE \\`$MYSQL_DATABASE\\`;"
+mysql -h "$MYSQL_HOST" -P "$MYSQL_PORT" -u "$MYSQL_USER" "$MYSQL_DATABASE" < Schema.sql
+
+echo "Schema aplicado com sucesso em $MYSQL_DATABASE"
