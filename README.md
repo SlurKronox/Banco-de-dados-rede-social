@@ -1,27 +1,28 @@
-# Banco de Dados MOVO (MySQL 8)
+ï»¿# Banco de Dados MOVO (MySQL 8)
 
 ![CI](https://github.com/SlurKronox/Banco-de-dados-rede-social/actions/workflows/ci.yml/badge.svg)
+![Security](https://github.com/SlurKronox/Banco-de-dados-rede-social/actions/workflows/security.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-Schema relacional de uma rede social (MOVO) com foco em modelagem completa de usuários, conteúdo, interações sociais, comunicação e notificações.
+Schema relacional da plataforma MOVO com foco em modelagem de usuarios, conteudo, interacoes sociais, comunicacao e notificacoes.
 
 ## Objetivo
-Este repositório centraliza o schema SQL do projeto MOVO para ambiente MySQL 8.
-A modelagem cobre entidades de rede social moderna com constraints, índices, triggers, views e evento de expiração de stories.
-O objetivo é permitir evolução controlada do banco com validações automatizadas em CI.
+Este repositorio centraliza o schema SQL oficial do projeto para MySQL 8.
+A modelagem cobre entidades de rede social moderna com constraints, indices, triggers, views e evento de expiracao de stories.
+O foco e manter evolucao controlada do banco com validacao automatica de qualidade e seguranca.
 
 ## Stack
 - MySQL 8
 - SQL (DDL, DML, triggers, views, event scheduler)
-- SQLFluff (lint de parsing)
-- GitHub Actions
+- SQLFluff (parse lint)
+- GitHub Actions (CI e security checks)
 
 ## Arquitetura
-- `Schema.sql`: definição principal do banco
-- `tests/smoke.sql`: validações de integridade estrutural
-- `scripts/lint-sql.sh`: lint SQL (parse)
-- `scripts/build-schema.sh`: recriação de banco limpo + aplicação de schema
-- `docs/`: documentação técnica de apoio
+- `Schema.sql`: definicao principal do banco
+- `tests/smoke.sql`: validacoes de integridade estrutural
+- `scripts/lint-sql.sh`: lint SQL
+- `scripts/build-schema.sh`: recriacao de banco limpo e aplicacao do schema
+- `docs/`: documentacao tecnica de apoio
 
 ## Setup Local
 ```bash
@@ -29,7 +30,7 @@ git clone https://github.com/SlurKronox/Banco-de-dados-rede-social.git
 cd Banco-de-dados-rede-social
 ```
 
-Defina variáveis (opcional):
+Variaveis opcionais:
 ```bash
 export MYSQL_HOST=127.0.0.1
 export MYSQL_PORT=3306
@@ -45,11 +46,17 @@ bash scripts/build-schema.sh
 mysql -h "$MYSQL_HOST" -P "$MYSQL_PORT" -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < tests/smoke.sql
 ```
 
-## Documentação
+## Documentacao
+- `docs/README.md`
 - `docs/ARCHITECTURE.md`
 - `docs/TESTING.md`
 - `docs/CI.md`
+- `docs/SECURITY.md`
+
+## Governanca
+- Politica de seguranca: `SECURITY.md`
+- Guia de contribuicao: `CONTRIBUTING.md`
 
 ## English Summary
-This repository contains the primary MySQL 8 schema for the MOVO social platform.
-It includes structural validation through SQL smoke tests and CI jobs for lint, build, and test.
+This repository contains the official MySQL 8 schema for the MOVO platform.
+It is documented and protected with CI, smoke tests, and security governance documents.

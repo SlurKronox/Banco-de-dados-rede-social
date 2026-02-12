@@ -1,20 +1,25 @@
-# CI
+ï»¿# CI
 
-## Pipeline
-Workflow: `.github/workflows/ci.yml`
+## Workflows
+- `.github/workflows/ci.yml`
+- `.github/workflows/security.yml`
 
-Jobs:
+## CI Jobs
 - `lint`: valida parsing SQL
 - `build`: recria banco MySQL e aplica schema
 - `test`: reaplica schema e executa smoke tests
 
+## Security Jobs
+- `dependency-review`: revisa alteracoes de dependencias em PR
+- `secret-scan`: executa varredura de segredos com Gitleaks
+
 ## Ambiente
 - Runner: `ubuntu-latest`
-- Serviço: `mysql:8.0`
+- Servico: `mysql:8.0`
 - Cliente: `mysql-client`
 
-## Critério de aprovação
-PR só é considerado saudável com os três jobs verdes.
+## Criterio de aprovacao
+PR e considerado saudavel apenas com CI e Security verdes.
 
 ## English Summary
-CI enforces SQL linting, clean schema deployment, and smoke tests on MySQL 8.
+CI enforces SQL linting, schema deployment, and smoke tests; Security workflow adds dependency and secret scanning.
